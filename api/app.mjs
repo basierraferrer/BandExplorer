@@ -6,11 +6,12 @@ import { fileURLToPath } from 'url';
 
 const app = express();
 app.use(express.json());
+// Read accepted origins from environment variable, fallback to localhost if not set
+
+const ACCEPTED_ORIGINS = ['https://band-explorer-ui.vercel.app'];
+
 app.use(cors({
   origin: (origin, callback) => {
-    const ACCEPTED_ORIGINS = [
-      'http://localhost:5173',
-    ];
     if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
       return callback(null, true);
     }
