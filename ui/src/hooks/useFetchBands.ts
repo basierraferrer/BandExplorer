@@ -1,6 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Band } from "../types";
 
+/**
+ * hook to fetch band data and categories from the server.
+ * Fetches a list of bands and their details, and provides loading state and genre categories.
+ * @returns {{ bandsData: Band[], isLoading: boolean, categories: string[] }}
+ */
 export const useFetchBands = ()=>{
   const [bandsData, setBandsData] = useState<Band[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -28,6 +33,7 @@ export const useFetchBands = ()=>{
     fetchData();
   }, []);
 
+  // get the categories chip options if there ir bands data
   const categories = useMemo(() => {
     const mapper = new Map<string, string>();
     if (bandsData.length) {

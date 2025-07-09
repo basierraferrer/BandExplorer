@@ -1,6 +1,12 @@
 import { useMemo, useState } from "react";
 import type { Band } from "../types";
 
+/**
+ * hook to filter bands by genre and search value.
+ * Provides filtered bands, search state, and filter controls.
+ * @param {Band[]} bandsData - The list of bands to filter.
+ * @returns {{ filteredBands: Band[], searchValue: string, changeFilter: (filter: string) => void, filterSelected: string, onChangeSearch: (value: string) => void }}
+ */
 export const useFilterBands = (bandsData:Band[])=>{
   const [filterSelected, setFilterSelected] = useState('all');
   const [searchValue, setSearchValue] = useState('');

@@ -5,6 +5,11 @@ export interface SearchProps {
   onSearchChange: (value: string) => void;
 }
 
+/**
+ * Search component renders a styled input for searching bands.
+ * @param {SearchProps} props
+ * @returns {JSX.Element}
+ */
 const Search = ({ searchValue, onSearchChange }: SearchProps) => {
   return (
     <div className="relative px-2 text-[var(--color)]">

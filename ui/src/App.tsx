@@ -6,6 +6,12 @@ import { Logo, Card, Search } from "./components";
 import { useFetchBands, useFilterBands } from "./hooks";
 
 
+/**
+ * Main application component for Bands explorer.
+ * Handles layout, navigation, band filtering, and displays band cards and welcome message.
+ * Uses custom hooks for fetching and filtering band data.
+ * @returns {JSX.Element}
+ */
 const App = () => {
   const [shouldOpen, setShouldOpen] = useState(false);
   const [resizeLayout, setResizeLayout] = useState(false);
@@ -16,9 +22,6 @@ const App = () => {
   const toggleOpenMenu = () => {
     setShouldOpen(!shouldOpen);
   }
-
-
-
 
   return (
     <div className="flex flex-col h-full gap-5 xl:flex-row ">
