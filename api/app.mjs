@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 // Read accepted origins from environment variable, fallback to localhost if not set
 
-const ACCEPTED_ORIGINS = ['https://band-explorer-ui.vercel.app'];
+const ACCEPTED_ORIGINS = ['http://localhost:5173','https://band-explorer-ui.vercel.app'];
 
 app.use(cors({
   origin: (origin, callback) => {
