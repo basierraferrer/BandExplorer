@@ -1,0 +1,10 @@
+### Get the band list
+GET http://localhost:3001/mocks/bands 
+
+
+### Get a band's data by id
+GET http://localhost:3001/mocks/001
+
+
+### Get a default text if no data for the artist
+GET http://localhost:3001/mocks/003

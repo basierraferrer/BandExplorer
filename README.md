@@ -24,6 +24,16 @@ This project is a Single Page Application (SPA) built with React. It displays a 
 
 - CORS is enabled for local development (e.g., Vite at `http://localhost:5173`).
 
+### **Unit Tests**
+- Unit tests have been added to the `api/` folder using [Jest](https://jestjs.io/) and [Supertest](https://github.com/ladjs/supertest).
+- The tests cover the main API endpoint `/mocks/:file`, checking both the case when a file exists and when it does not (default response).
+- To run the tests:
+  ```sh
+  cd api
+  yarn test
+  ```
+- Test files are located in the root of the `api/` folder (e.g., `server.test.mjs`).
+
 ### **Mock Data**
 - The `api/data/` folder contains:
   - `bands.json`: List of all bands.

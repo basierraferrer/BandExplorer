@@ -7,11 +7,17 @@
   "author": "Brian Alexis Sierra Ferrer <basierraferrer@gmail.com>",
   "license": "MIT",
   "private": true,
+  "type": "module",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.1.0"
   },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3"
+  },
   "scripts": {
-    "start": "node server.mjs"
+    "start": "node server.mjs",
+    "test": "node --experimental-vm-modules ./node_modules/.bin/jest --env=node"
   }
 }
