@@ -46,6 +46,24 @@ This project is a Single Page Application (SPA) built with React. It displays a 
 ### **SPA in React + Vite**
 The `ui/` folder contains the frontend of the application, built with React, Vite, and TailwindCSS.
 
+### **Unit Tests**
+- Unit tests have been added to the `ui/` folder using [Vitest](https://vitest.dev/), [Testing Library](https://testing-library.com/), and [MSW (Mock Service Worker)](https://mswjs.io/).
+- The tests cover:
+  - Rendering and interaction of main components (`Card`, `Logo`, `Search`).
+  - Utility functions (e.g., `getImageURL`).
+  - The main app logic in `App.tsx`, including:
+    - Loading and displaying bands from the mock API.
+    - Filtering by genre/category.
+    - Filtering by search input.
+    - Combined filtering (search + category).
+- To run the tests:
+  ```sh
+  cd ui
+  yarn test
+  ```
+- Test files are located alongside the components and utilities (e.g., `Card.test.tsx`, `App.test.tsx`).
+- MSW is used to mock API requests for reliable and realistic test scenarios.
+
 ### **Main Structure**
 - **src/components/**: Reusable components such as:
   - `Card`: Displays band information.
