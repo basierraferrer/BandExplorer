@@ -31,6 +31,22 @@ This project is a Single Page Application (SPA) built with React. It displays a 
 
 ---
 
+## Frontend (UI)
+
+### **SPA in React + Vite**
+The `ui/` folder contains the frontend of the application, built with React, Vite, and TailwindCSS.
+
+### **Main Structure**
+- **src/components/**: Reusable components such as:
+  - `Card`: Displays band information.
+  - `Button`: Styled button component.
+  - `Logo`: App logo.
+  - `Search`: Search bar component.
+- **src/utils/**: Utility functions.
+- **src/types/**: Shared TypeScript types.
+
+---
+
 ## How to Run
 
 ### Mock API Server
@@ -45,6 +61,23 @@ This project is a Single Page Application (SPA) built with React. It displays a 
    ```
 3. Start the server:
    ```sh
-   node server.mjs
+   yarn start
    ```
    The server will be available at `http://localhost:3001/mocks`.
+
+### Frontend
+1. Go to the `ui` directory:
+   ```sh
+   cd ui
+   ```
+2. Install dependencies:
+   ```sh
+   yarn install
+   ```
+3. Start the app in development mode:
+   ```sh
+   yarn dev
+   ```
+   The app will be available at `http://localhost:5173`.
+
+   > Make sure the mock API server (`api/`) is running for the app to work properly.
