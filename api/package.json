@@ -1,0 +1,17 @@
+{
+  "name": "api-bands",
+  "version": "1.0.0",
+  "description": "This is the custom API to fetch data for BandsExplorer SPA",
+  "main": "server.mjs",
+  "repository": "https://github.com/basierraferrer/BandExplorer",
+  "author": "Brian Alexis Sierra Ferrer <basierraferrer@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  },
+  "scripts": {
+    "start": "node server.mjs"
+  }
+}
