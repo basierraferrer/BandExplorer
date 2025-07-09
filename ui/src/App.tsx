@@ -1,87 +1,27 @@
 
-import { useState, useMemo, useEffect } from "react";
+import { useState } from "react";
 import { LuBell, LuMenu, LuMessageCircle, LuSettings, LuX } from "react-icons/lu";
 import soon from './assets/sources/soon.png'
 import { Logo, Card, Search } from "./components";
-import type { Band } from "./types";
+import { useFetchBands, useFilterBands } from "./hooks";
 
 
 const App = () => {
   const [shouldOpen, setShouldOpen] = useState(false);
-  const [filterSelected, setFilterSelected] = useState('all');
   const [resizeLayout, setResizeLayout] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
-  const [bandsData, setBandsData] = useState<Band[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+
+  const { bandsData, isLoading, categories } = useFetchBands();
+  const { changeFilter, filteredBands, searchValue, filterSelected, onChangeSearch } = useFilterBands(bandsData);
 
   const toggleOpenMenu = () => {
     setShouldOpen(!shouldOpen);
   }
 
-  const changeFilter = (filter: string) => {
-    setFilterSelected(filter)
-  }
 
-  useEffect(() => {
-    setIsLoading(true);
-    const fetchBandInfo = async (bandId: string) => {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/mocks/${bandId}`);
-      return await res.json();
-    };
-    const fetchData = async () => {
-      const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/mocks/bands`);
-
-      if (result.ok) {
-        const data = await result.json();
-        const bandsInfo = await Promise.all(data.map(async (band: Band) => ({
-          ...band,
-          ...await fetchBandInfo(band.id)
-        })))
-        setBandsData(bandsInfo);
-      }
-
-      setIsLoading(false);
-    }
-    fetchData();
-  }, []);
-
-  const categories = useMemo(() => {
-    const mapper = new Map<string, string>();
-    if (bandsData.length) {
-      mapper.set('all', 'all');
-      bandsData.forEach(({ genre }) => mapper.set(genre, genre));
-    }
-    return Array.from(mapper.values());
-  }, [bandsData])
-
-  // Filter bands based on search value and selected filter
-  const filteredBands = useMemo(() => {
-    let filtered = bandsData;
-
-    // Filter by search value (band name, album, or genre)
-    if (searchValue.trim()) {
-      const searchLower = searchValue.toLowerCase();
-      filtered = filtered.filter(band =>
-        band.band_name.toLowerCase().includes(searchLower) ||
-        band.album.toLowerCase().includes(searchLower) ||
-        band.genre.toLowerCase().includes(searchLower)
-      );
-    }
-
-    // Filter by selected genre
-    if (filterSelected !== 'all') {
-      const genreLower = filterSelected.toLowerCase();
-      filtered = filtered.filter(band =>
-        band.genre.toLowerCase() === genreLower
-      );
-    }
-
-    return filtered;
-  }, [bandsData, searchValue, filterSelected]);
 
 
   return (
-    <div className="flex flex-col h-full gap-5 lg:flex-row">
+    <div className="flex flex-col h-full gap-5 xl:flex-row ">
       <main className="flex flex-col grow gap-5">
         <nav className={`flex flex-wrap items-stretch justify-between grow rounded-[10px] bg-demo ${shouldOpen ? 'h-auto' : 'max-h-[89px]'} w-full`}>
           <Logo />
@@ -109,7 +49,7 @@ const App = () => {
                   className={`capitalize cursor-pointer ${filterSelected === chip ? 'bg-[var(--lyric-green)]' : 'bg-[var(--bg-color)] hover:text-gray-600 hover:font-semibold hover:bg-gray-50'} block py-2 px-3 min-w-20 rounded-[19px]`}
                 >{chip}</button>
               ))}
-              <Search searchValue={searchValue} onSearchChange={setSearchValue} />
+              <Search searchValue={searchValue} onSearchChange={onChangeSearch} />
             </div>
           </div>
           <div className="hidden lg:flex lg:justify-evenly lg:mr-5 text-3xl text-[var(--color)] w-3xs font-medium items-center">
@@ -118,7 +58,7 @@ const App = () => {
             <LuMessageCircle />
           </div>
           <div className={`justify-between items-end w-full ${shouldOpen ? '' : 'hidden'}`}>
-            <Search searchValue={searchValue} onSearchChange={setSearchValue} />
+            <Search searchValue={searchValue} onSearchChange={onChangeSearch} />
             <div className="flex-col flex mt-4">
               {isLoading && (
                 <div className="flex gap-2">
@@ -150,7 +90,7 @@ const App = () => {
               </div>
             </article>
           )}
-          {!isLoading && filteredBands.length && filteredBands.map((band) => (<Card {...band} />))}
+          {!isLoading && filteredBands.length && filteredBands.map((band) => (<Card key={band.id} {...band} />))}
         </section>
       </main>
       <aside className={`w-full lg:relative ${resizeLayout ? 'hidden' : 'lg:w-[30%] justify-between'} rounded-[10px] bg-demo px-[30px] py-10`}>
