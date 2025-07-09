@@ -18,6 +18,7 @@
   },
   "scripts": {
     "start": "node server.mjs",
+    "build": "node server.mjs",
     "test": "node --experimental-vm-modules ./node_modules/.bin/jest --env=node"
   }
 }
